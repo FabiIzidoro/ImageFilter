@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtros de Imagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="file"], select, button {
+            margin: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        img {
+            max-width: 300px;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload de Imagem e Aplicação de Filtros</h1>
+
+    <div class="form-section">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="imagem" accept="image/*" required>
+            <select name="filtro">
+                <option value="negativo">Negativo</option>
+                <option value="mediana">Mediana</option>
+                <option value="gaussiano">Gaussiano</option>
+            </select>
+            <button type="submit">Aplicar Filtro</button>
+        </form>
+    </div>
+
+    {% if imagem_original and imagem_processada %}
+    <div class="result">
+        <h2>Resultado:</h2>
+        <div class="images">
+            <div>
+                <strong>Original:</strong><br>
+                <img src="{{ url_for('static', filename='uploads/' + imagem_original) }}" alt="Imagem Original">
+            </div>
+            <div>
+                <strong>Processada:</strong><br>
+                <img src="{{ url_for('static', filename='processed/' + imagem_processada) }}" alt="Imagem Processada">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
